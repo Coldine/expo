@@ -1,330 +1,242 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
-		<title>Expo - Coldine</title>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Árbol de Decisiones</title>
+    <script src="d3.v6.min.js.js"></script>
+    <style>
+      * {
+        transition: all 0.6s ease;
+      }
+      circle {
+        background-color: aqua;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        justify-items: center;
+        height: 98vh;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+      }
+      svg {
+        /* width: 100%;
+            height: 600px; */
+        /* border: 1px solid #0ff; */
+      }
+      input,
+      button {
+        margin: 10px;
+        padding: 8px;
+        font-size: 16px;
+      }
+      text {
+        font-weight: bold;
+        font-size: larger;
+      }
+      input[type="number"] {
+        width: 5rem;
+        padding: 0.2rem;
+        font-size: 3rem;
+        border: 2px solid #0004;
+        border-radius: 18.7px;
+        outline: none;
+        text-align: center;
+        position: absolute;
+        right: 4vw;
+        top: 3vh;
+        background: #0000009c;
+        color: #fff;
+        font-weight: bold;
+      }
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+      input[type="number"]:focus,
+      input[type="number"]:hover {
+        background: #000;
+        border: 2px solid #000;
+        /* border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h2>Generador de Árbol de Decisiones</h2> -->
+    <!-- <label for="depth">Nivel de Profundidad (n): </label> -->
+    <input
+      type="number"
+      id="depth"
+      value="1"
+      min="1"
+      max="3"
+      step="1"
+      onchange="generateTree(); location.reload();"
+    />
+    <svg id="tree"></svg>
 
-		<!-- <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css"> -->
-		<!-- Theme used for syntax highlighted code -->
-		<!-- <link rel="stylesheet" href="plugin/highlight/monokai.css"> -->
-		<!-- <script src="particles.js" defer></script> -->
-		<style type="text/css" media="screen">
-			.slides section.has-dark-background,
-			.slides section.has-dark-background h2 {
-				color: #fff;
-			}
-			.slides section.has-light-background,
-			.slides section.has-light-background h2 {
-				color: #222;
-			}
-		</style>
-	</head>
-	<body>
-		<!-- <section data-auto-animate data-autoslide="2000"></section> -->
-		<div class="reveal" id="particles-js">
-			<div class="slides" >				
-				<section>
-					<section data-background="#000">
-						<h1 class="r-fit-text"> Construcción </h1>
-						<h2>de</h2>
-						<h1 class="r-fit-text"> Significados </h1>
-					</section>
-					<section> 
-						<h1>Temario</h1>
-						<ul>
-							<li data-autoslide="600" class="fragment fade-down">Revolución cognitiva</li>
-							<li data-autoslide="600" class="fragment fade-down">Objetivismo</li>
-							<li data-autoslide="600" class="fragment fade-down">Génesis del conductismo</li>
-							<li data-autoslide="600" class="fragment fade-down">Introspección</li>
-							<li data-autoslide="600" class="fragment fade-down">Cognitivismo</li>
-							<li data-autoslide="600" class="fragment fade-down">Conciencia</li>
-							<li data-autoslide="600" class="fragment fade-down">Significados</li>
-							<li class="fragment fade-down">Mente</li>
-						</ul>
-					</section>
-				</section>			
-				<section data-background="#fff">
-					<section>
-						<h1>Revolución cognitiva</h1>
-						<aside class="notes">
-							Paso del <b>conductismo</b>  al <b>cognitivismo</b> <br>Paradigma de la comunidad de la 
-							psicología experimental de <b>Estados Unidos en los 1950's</b>. 
-						</aside>
-					</section>
-					<section>
-						<p>Алиса Зиновьевна Розенбаум</p>
-						<img src="img/alisa.webp" style="height: 50vh;">
-						<aside class="notes">
-							Alisa Zinóvievna Rosenbaum: escritora
-						</aside>
-					</section>
-					<section >
-						<h1>Алиса Зиновьевна Розенбаум 🇷🇺</h1>
-						<span style="color: #555; font-style: italic;font-size: xx-large;">
-							2 de febrero de 1905 - 6 de marzo de 1982 (77 años)
-						</span>
-						<h2>
-							Objetivismo
-						</h2>
-						<aside class="notes">
-							Alisa Zinóvievna Rosenbaum: escritora<br>
-							Sostiene que existe una realidad absoluta e independiente de la mente del ser humano, y
-							que el ser humano está en contacto con dicha realidad a través de la percepción de los 
-							sentidos y que adquiere conocimiento procesando los datos de dicha percepción por medio de 
-							la razón (o la «identificación no-contradictoria»). 
-						</aside>
-					</section>
-				</section>
-				<section>
-					<section data-background="#000">
-						<h1 class="r-fit-text"> Génesis </h1>
-						<h2> del</h2>
-						<h1 class="r-fit-text">Conductismo </h1>
-					</section>
-					<section>
-						<p>Ивaн Петрoвич Пaвлов</p>
-						<img src="img/Pavlov.jpg" style="height: 50vh;">
-						<aside class="notes">
-							Iván Petróvich Pávlov: filósofo
-						</aside>
-					</section>
-					<section >
-						<h1>Ивaн Петрoвич Пaвлов 🇷🇺</h1>
-						<span style="color: #fffa; font-style: italic;font-size: xx-large;">
-							26 de septiembre de 1849 - 27 de febrero de 1936 (86 años)
-						</span>
-						<h2>Estímulo-Respuesta</h2>
-							<ul>
-								<li>Primer sistema de señales</li>
-								<li>Segundo sistema de señales</li>
-							</ul>
-							<aside class="notes">
-								Iván Petróvich Pávlov: filósofo <br>
-								discutir: Experiementos con animales
-								<b>Primer sistema de señales</b> 
-								Así denominó a la relación por la cual en el sistema nervioso central, en especial en el cerebro se establece
-								 una asociación, por ejemplo, entre un sonido, con el posible alimento: el sonido (u otro estímulo sustitutivo)
-								  funciona como una señal. Pávlov consideró que la mayoría de los animales se rige por un «pensamiento» basado
-								   en este sistema de sustituciones reflejas, un primer sistema de señales.Segundo sistema de señales <br>
-								<b>Segundo sistema de señales</b>
-								  
-								muchos «comportamientos humanos» son más complejos que un sistema de reflejos condicionales simples en un modelo «estímulo/respuesta»  <br>
-								segundo sistema de señales que es el lenguaje verbal o simbólico <br>
-								el ser humano puede reaccionar ante estímulos que él mismo va generando y que puede transmiti
-							</aside>
-					</section>
-					<section>
-						<p>Edward Lee Thorndike </p>
-						<img src="img/Thorndike.png" style="height: 50vh;">
-						<aside class="notes">
-							psicólogo y pedagogo
-						</aside>
-					</section>
-					<section >
-						<h1>Edward Lee Thorndike 🇺🇸</h1>
-						<span style="color: #fffa; font-style: italic;font-size: xx-large;">
-							1 de agosto de 1874 - 9 de agosto de 1949(75 años)
-						</span>
-						<h2>Ley del efecto</h2>
-							<aside class="notes">
-								<b>Ley del efecto</b> 
-								el aprendizaje se compone de una serie de conexiones entre un estímulo y una respuesta, que se fortalecen cada vez que generan 
-								un estado de cosas satisfactorio para el organismo.
-							</aside>
-					</section>
-					<section data-background="#000">
-						<h1 class="r-fit-text"> Nace<br>el<br>Conductismo</h1>
-							   
-					</section>
-					<section>
-						<p>John Broadus Watson</p>
-						<img src="img/Watson.jpg" style="height: 50vh;">
-						<aside class="notes">
-							psicólogo
-						</aside>
-					</section>
-					<section data-auto-animate>
-						<h1>John Broadus Watson 🇺🇸</h1>
-						<p style="font-size: xxx-large;">CONDUCTISMO: estudio experimental objetivo y natural de la conducta, excluyendo la conciencia y la introspección.</p>
-					</section>
-					<section data-auto-animate>
-						<h1>John Broadus Watson 🇺🇸</h1>
-						<span style="color: #fffa; font-style: italic;font-size: xx-large;">
-							9 de enero de 1878 - 25 de septiembre de 1958 (80 años)
-						</span>
-						<ul>
-							<li>Psychology as the behaviorist views it</li>
-							<li>Pequeño Albert</li>
-						</ul>	
-						<aside class="notes">
-							discutir: Experiementos con animales <br>
-								artículo en Psychological Review de American Psychological Association, en 1913, La psicología como el conductista ve, 1913
-							un diario academico <br>
-							11 meses y tres días. <br>
-							¿Puede condicionarse a un niño para que tema a un animal que aparece simultáneamente con un ruido fuerte?
-							 <br> ¿Se transferirá tal miedo a otros animales u objetos inanimados?
-							<br> ¿Cuánto persistirá tal miedo?
-							</aside>
-					</section>
-					<section>
-						<p>Burrhus Frederic Skinner</p>
-						<img src="img/Skinner.jpg" style="height: 50vh;">
-						<aside class="notes">
-							psicólogo, filósofo social, inventor y autor	
-						</aside>
-					</section>
-					<section data-auto-animate>
-						<h1>Burrhus Frederic Skinner 🇺🇸</h1>
-						<p style="font-size: xxx-large;" >CONDUCTISMO: describir las leyes generales que rigen la conducta.</p>
-					</section>
+    <script>
+      let globalN;
+      function menor(x) {
+        return window.innerHeight > window.innerWidth
+          ? window.innerHeight * x
+          : window.innerWidth * x;
+      }
+      function generateTree() {
+        const n = parseInt(document.getElementById("depth").value);
+        globalN = n;
+        const treeData = createTreeData(n);
 
-					<section data-auto-animate>
-						<h1>Burrhus Frederic Skinner 🇺🇸</h1>
-						<span style="color: #fffa; font-style: italic;font-size: xx-large;">
-							20 de marzo de 1904 - 18 de agosto de 1990 (86 años)
-						</span>
-						<ul>
-							<li>Condicionamiento clásico</li>
-							<li>Condicionamiento operante</li>
-							<li>Avram Noam Chomsky</li>
-						</ul>	
-							<aside class="notes">
-								Avram Noam Chomsky: el cerebro humano tendría un módulo genético especializado para la adquisición del lenguaje. 
-							</aside>
-					</section>
-					<section data-background="#fff">
-						<h1 class="r-fit-text"> Otro punto de vista </h1>
-					</section>
-					<section data-background="#fff">
-						<p>Wilhelm Maximilian Wundt</p>
-						<img src="img/Wundt.jpg" style="height: 50vh;">
-						<aside class="notes">fisiólogo, médico, psicólogo y filósofo</aside>
-					</section>
-					<section data-background="#fff">
-						<h1>Wilhelm Maximilian Wundt 🇩🇪</h1>
-						<span style="color: #555;font-style: italic;font-size: xx-large;">
-							16 de agosto de 1832 - 31 de agosto de 1920 (88 años)
-						</span>
-						<h2> Introspección </h2>
-						<aside class="notes"> 
-								Se basaba en estimular el recuerdo y reflexión del paciente con 
-								respecto a sus propios procesos de pensamiento y sus desencadenantes
-							<br>
-							formar al paciente para que fuera capaz de analizar sus pensamientos de manera sistemática y objetiva
-							<br>
-							Por medio de esta técnica, Wundt pretendía formar al paciente para que fuera capaz de 
-							analizar sus pensamientos de manera sistemática y objetiva.	
-						</aside>
-					</section>
-				</section>
+        // Limpiar el SVG antes de generar un nuevo árbol
+        d3.select("#tree").selectAll("*").remove();
 
-				<section>
-					<section data-background="#000"></section>
-					<section data-background="#fff">
-						<p>Jerome Seymour Bruner</p>
-						<img src="img/Bruner.webp" style="height: 50vh;">
-						<aside class="notes">
-							psicólogo, profesor y pedagogo <br>
-							Segunda Guerra Mundial, 1939 - 1945
-						</aside>
-					</section>
-					<section data-auto-animate>
-						<h1>Jerome Seymour Bruner 🇺🇸</h1>
-						
-						<span style="color: #fffa; font-style: italic;font-size: xx-large;">
-							1 de octubre de 1915 - 5 de junio de 2016(100 años)
-						</span>
-							<aside class="notes">
-								cambios en la enseñanza que permitieran superar los modelos reduccionistas,
-								 mecanicistas del aprendizaje memorístico centrado en la figura del docente
-								 <br>
-								 contribuciones a la psicología cognitiva y a las teorías del aprendizaje
-							</aside>
-					</section>
-					<section data-background="#000">
-						<h1>Cognitivismo</h1>
-						<aside class="notes">
-							El término cognitivo significa el acto de conocimiento, en sus acciones de almacenar, 
-							recuperar, reconocer, comprender, organizar y usar la información recibida a través de 
-							los sentidos. <br>
-							<b>reduccionismo</b>.
-						</aside>
-					</section>
-					<section data-background="#fff"> 
-						<h1>Conciencia</h1>
-						<aside class="notes">
-							Para la Psicología, como conciencia se denomina el acto mediante el cual una persona es 
-							capaz de percibirse a sí misma en el mundo. En este sentido, la conciencia implica el 
-							hecho en sí de un individuo darse cuenta de aquello que ocurre a su alrededor, fuera del 
-							Yo, como resultado de un conjunto de reflexiones sobre las propias acciones y las realidades 
-							presentes en su entorno.
-						</aside>
-					</section>
-					<section data-background="#fff"> 
-						<h1>Construcción de significados</h1>
-						<ul>
-							<li>Acts of Meaning. 1990</li>
-							<li>Value and Need as Organizing Factors in Perception (1947)- Jerome S. Bruner and Cecile C. Goodman, Harvard University</li>
-						</ul>
-						<aside class="notes">
-							Valor y necesidad como factores organizadores de la percepción <br>
-							Bruner sostiene que la psicología debe estar vinculada a las ciencias interpretativas como la 
-							antropología cultural y que la revolución cognitiva no debe “reformar” (como ha ocurrido, 
-							según su análisis) sino “reemplazar” al conductismo. Además, propone que es necesaria una 
-							“psicología cultural” que se ocupe de las narrativas humanas y de la construcción de 
-							significados, en lugar del procesamiento estadístico de información
-						</aside>
-					</section>
-				</section>
+        const width = window.innerWidth * 0.9;
+        const height = window.innerHeight * 0.9;
+        const svg = d3
+          .select("#tree")
+          .attr("width", width)
+          .attr("height", height);
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${width * 0.5}, 100)`);
 
-				<section>
-					<section>
-						<h1>Analogía de la mente</h1>
-						<ul>
-							<li>La mente humana</li>
-							<li>La mente computable</li>
-						</ul>
-						<aside class="notes">
-							estados intencionales como creer, desear, pretender, captar un significado.
-						</aside>
-					</section>
-					<section data-background="#fff">
-						<img src="img/mente.webp" style="height: 55vh;">
-					</section>	
-					<section data-background="#fff">
-						<img src="img/Function.png" style="height: 55vh;">
-					</section>	
-			</section>	
-			</div>
-		</div>
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.configure({ 
-				progress: false,
-				hideCursorTime: 2000
-			 });
-			 
-			 
-			 // Learn about plugins: https://revealjs.com/plugins/
-			Reveal.initialize({
-				plugins: [ 
-					RevealMarkdown, 
-					RevealNotes ],
-					autoAnimateEasing: 'ease-in-out',
-					autoAnimateDuration: 1.5
-			});
-		</script>
-	</body>
+        const treeLayout = d3.tree().size([width, height - 250]);
+        const root = d3.hierarchy(treeData);
+        treeLayout(root);
+
+        const link = g
+          .selectAll(".link")
+          .data(root.links())
+          .enter()
+          .append("line")
+          .attr("class", "link")
+          .attr("stroke", function (d) {
+            return d.target.data.colorline;
+          })
+          .attr("x1", (d) => d.source.x - width / 2)
+          .attr("y1", (d) => d.source.y)
+          .attr("x2", (d) => d.target.x - width / 2)
+          .attr("y2", (d) => d.target.y);
+
+        const node = g
+          .selectAll(".node")
+          .data(root.descendants())
+          .enter()
+          .append("g")
+          .attr("class", "node")
+          .attr("transform", (d) => `translate(${d.x - width / 2},${d.y})`);
+
+        node
+          .append("circle")
+          .attr("r", Math.floor(menor(0.035)))
+          .attr("fill", function (d) {
+            if (d.depth == 0) {
+              return "black";
+            }
+            return d.data.color;
+          });
+
+        node
+          .append("text")
+          .attr("dy", 5)
+          //   .attr("x", (d) => (d.children ? 0 : -22))
+          .text((d) => d.data.name)
+          .attr("font-size", "14px")
+          .attr("fill", "black");
+
+        document
+          .querySelector("g")
+          .querySelectorAll("text")
+          .forEach((e, i) => {
+            // if (globalN == 3 && i > 6)
+            //   e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            if (globalN == 2 && i > 2)
+              e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            if (globalN == 1 && i > 0)
+              e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            if (e.innerHTML != "" && i % 2 != 0) e.setAttribute("x", "-22");
+            if (e.innerHTML != "" && i % 2 == 0) e.setAttribute("x", "-30");
+          });
+      }
+
+      function createTreeData(n) {
+        function addChildren(node, depth) {
+          if (depth < n) {
+            node.children = [
+              {
+                name: "",
+                color: "#F45B69",
+                colorline: "#F45B69",
+                children: [],
+              },
+              {
+                name: "",
+                color: "#89DAFF",
+                colorline: "#89DAFF",
+                children: [],
+              },
+            ];
+            if (depth == n - 1) {
+              node.children = [
+                {
+                  color: "#F45B69",
+                  colorline: "#F45B69",
+                  children: [],
+                },
+                {
+                  color: "#89DAFF",
+                  colorline: "#89DAFF",
+                  children: [],
+                },
+              ];
+            }
+            node.children.forEach((child) => addChildren(child, depth + 1));
+          }
+        }
+        let root = { name: "", children: [] };
+        addChildren(root, 0);
+        return root;
+      }
+
+      generateTree();
+      window.addEventListener("resize", function () {
+        generateTree();
+      });
+      let k = 10;
+      document.querySelectorAll("circle").forEach((element) => {element.setAttribute("orSize", parseInt(element.getAttribute("r")))});
+
+      document.querySelectorAll("circle").forEach((element) => {
+        element.addEventListener("click", (e) => {
+            console.log(e);
+            if (!e.ctrlKey) {   
+                let r = parseInt(e.srcElement.getAttribute("r"));
+                let orSize = parseInt(e.srcElement.getAttribute("orSize"));
+                e.srcElement.setAttribute("r",
+                (orSize+k == r)? r + k: r-k );
+                e.srcElement.setAttribute("stroke",
+                (orSize+k == r)? "#0005": "none" );
+                e.srcElement.setAttribute("stroke-width",
+                (orSize+k == r)? "3": "none" );
+            }
+            if (e.ctrlKey) {
+                e.srcElement.parentNode.remove();
+            }
+        });
+        element.addEventListener("mouseenter", (e) => {
+          e.srcElement.setAttribute("r",
+            parseInt(e.srcElement.getAttribute("r")) + k
+          );
+        });
+        element.addEventListener("mouseleave", (e) => {
+          e.srcElement.setAttribute(
+            "r", parseInt(e.srcElement.getAttribute("r")) - k
+          );
+        });
+      });
+    </script>
+  </body>
 </html>
