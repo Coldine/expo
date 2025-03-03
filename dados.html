@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Dado</title>
+    <style>
+      :root{
+        --font-size: 1.4rem;
+      }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"] {
+            width: 9rem;
+            padding: 10px;
+            font-size: var(--font-size);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        input[type="number"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: var(--font-size);
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .dice-stats {
+            font-weight: bold;
+            font-size: var(--font-size);
+            margin-bottom: 10px;
+        }
+
+        .roll-history {
+            list-style: none;
+            padding: 0;
+        }
+
+        .roll-history li {
+            padding: 5px;
+            font-size: var(--font-size);
+            background: #e9ecef;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .dice-stats span {
+        font-size: calc(var(--font-size) * 1.2);
+        }
+        pre{
+          margin: 0;
+          padding: 0;
+          font-weight: 100;
+
+        font-size: calc(var(--font-size) * 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Simulador de Lanzamiento de Dado 🎲</h2>
+        <label for="rolls">Número de lanzamientos:</label>
+        <input type="number" id="rolls" value="10" min="1">
+        <button onclick="rollDice()">Lanzar</button>
+
+        <div class="results">
+            <div class="dice-stats" id="diceStats"></div>
+            <p class="dice-stats" id="data"></p>
+            <!-- <ul class="roll-history" id="rollHistory"></ul> -->
+        </div>
+    </div>
+
+    <script>
+        function rollDice() {
+            let numRolls = parseInt(document.getElementById("rolls").value);
+            let results = [];
+            let counts = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0};
+
+            let data = document.getElementById("data");
+            data.innerHTML="";
+            // Generar lanzamientos aleatorios
+            for (let i = 0; i < numRolls; i++) {
+                let roll = Math.floor(Math.random() * 6) + 1;
+                // results.push(roll);
+                counts[roll]++;
+                let span = document.createElement("span");
+                span.innerText = roll + ", ";
+                data.appendChild(span); 
+            }
+
+            // Mostrar estadísticas
+            let statsText = "";
+            for (let i = 1; i <= 6; i++) {
+                statsText += `<span>🫴 ${i}: ${counts[i]} </span>
+                <pre>${counts[i]}/${numRolls} = ${counts[i]/numRolls}</pre><br>`;
+            }
+            document.getElementById("diceStats").innerHTML = statsText;
+        }
+    </script>
+
+</body>
+</html>
