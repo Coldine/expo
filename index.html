@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Árbol de Decisiones</title>
+    <title>Árbol de Decisiones || Seminario</title>
     <script src="d3.v6.min.js.js"></script>
     <style>
       * {
@@ -24,11 +24,6 @@
         align-items: center;
         margin: 0;
         padding: 0;
-      }
-      svg {
-        /* width: 100%;
-            height: 600px; */
-        /* border: 1px solid #0ff; */
       }
       input,
       button {
@@ -74,8 +69,8 @@
       value="1"
       min="1"
       max="3"
-      step="1"
-      onchange="generateTree(); location.reload();"
+      step="2"
+      onchange="generateTree();"
     />
     <svg id="tree"></svg>
 
@@ -154,13 +149,15 @@
           .forEach((e, i) => {
             // if (globalN == 3 && i > 6)
             //   e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
-            if (globalN == 2 && i > 2)
-              e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
-            if (globalN == 1 && i > 0)
-              e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            // if (globalN == 2 && i > 2)
+            //   e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            // if (globalN == 1 && i > 0)
+            //   e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
+            if (i > 0) e.innerHTML = i % 2 != 0 ? "PAR" : "IMPAR";
             if (e.innerHTML != "" && i % 2 != 0) e.setAttribute("x", "-22");
             if (e.innerHTML != "" && i % 2 == 0) e.setAttribute("x", "-30");
           });
+          extraFunc();
       }
 
       function createTreeData(n) {
@@ -203,40 +200,46 @@
       }
 
       generateTree();
-      window.addEventListener("resize", function () {
-        generateTree();
-      });
-      let k = 10;
-      document.querySelectorAll("circle").forEach((element) => {element.setAttribute("orSize", parseInt(element.getAttribute("r")))});
+      function extraFunc(){
+        let k = 10;
+        document.querySelectorAll("circle").forEach((element) => {
+          element.setAttribute("orSize", parseInt(element.getAttribute("r")));
+        });
 
-      document.querySelectorAll("circle").forEach((element) => {
-        element.addEventListener("click", (e) => {
+        document.querySelectorAll("circle").forEach((element) => {
+          element.addEventListener("click", (e) => {
             console.log(e);
-            if (!e.ctrlKey) {   
-                let r = parseInt(e.srcElement.getAttribute("r"));
-                let orSize = parseInt(e.srcElement.getAttribute("orSize"));
-                e.srcElement.setAttribute("r",
-                (orSize+k == r)? r + k: r-k );
-                e.srcElement.setAttribute("stroke",
-                (orSize+k == r)? "#0005": "none" );
-                e.srcElement.setAttribute("stroke-width",
-                (orSize+k == r)? "3": "none" );
+            if (!e.ctrlKey) {
+              let r = parseInt(e.srcElement.getAttribute("r"));
+              let orSize = parseInt(e.srcElement.getAttribute("orSize"));
+              e.srcElement.setAttribute("r", orSize + k == r ? r + k : r - k);
+              e.srcElement.setAttribute(
+                "stroke",
+                orSize + k == r ? "#0005" : "none"
+              );
+              e.srcElement.setAttribute(
+                "stroke-width",
+                orSize + k == r ? "8" : "none"
+              );
             }
             if (e.ctrlKey) {
-                e.srcElement.parentNode.remove();
+              e.srcElement.parentNode.remove();
             }
+          });
+          element.addEventListener("mouseenter", (e) => {
+            e.srcElement.setAttribute(
+              "r",
+              parseInt(e.srcElement.getAttribute("r")) + k
+            );
+          });
+          element.addEventListener("mouseleave", (e) => {
+            e.srcElement.setAttribute(
+              "r",
+              parseInt(e.srcElement.getAttribute("r")) - k
+            );
+          });
         });
-        element.addEventListener("mouseenter", (e) => {
-          e.srcElement.setAttribute("r",
-            parseInt(e.srcElement.getAttribute("r")) + k
-          );
-        });
-        element.addEventListener("mouseleave", (e) => {
-          e.srcElement.setAttribute(
-            "r", parseInt(e.srcElement.getAttribute("r")) - k
-          );
-        });
-      });
+      }
     </script>
   </body>
 </html>
